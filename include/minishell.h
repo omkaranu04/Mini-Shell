@@ -28,7 +28,7 @@ typedef struct s_env
 // enum for error handling
 typedef enum e_err_msg
 {
-    ERRMSG_CMB_NOT_FOUND,
+    ERRMSG_CMD_NOT_FOUND,
     ERRMSG_NO_SUCH_FILE,
     ERRMSG_PERM_DENIED,
     ERRMSG_AMBIGUOUS,
