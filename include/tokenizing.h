@@ -49,7 +49,7 @@ int ft_is_quote(char c);                    // check if the chart is a quote
 int ft_is_separator(char c);                // check is the char is a separator
 void ft_skip_spaces(char **line);           // skip all the whitespaces
 bool ft_skip_quotes(char *line, size_t *i); // skips the quoted regions
-void ft_print_qoute_err(char c);            // prints the unclosed quote errors
+void ft_print_quote_err(char c);            // prints the unclosed quote errors
 
 // tokenizer.c
 t_token *ft_tokenize(void); // converts the input line to a token list
