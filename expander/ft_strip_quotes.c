@@ -32,7 +32,7 @@ static void ft_unquote_filler(char *str, size_t *i, char *ret, size_t *j)
 }
 
 // remove quotes from the string and return the cleaned string
-char *ft_strip_quots(char *str)
+char *ft_strip_quotes(char *str)
 {
     char *ret = ft_calloc(1 + ft_unquoted_strlen(str), sizeof(char));
     size_t i = 0, j = 0;

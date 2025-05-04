@@ -29,7 +29,7 @@ void ft_clear_cmd_node(t_node *node)
 }
 
 // clears the entire AST recursively
-void free_recursive_clear_ast(t_node *node)
+void ft_recursive_clear_ast(t_node *node)
 {
     if (!node)
         return;
@@ -38,9 +38,9 @@ void free_recursive_clear_ast(t_node *node)
     else
     {
         if (node->left)
-            free_recursive_clear_ast(node->left);
+            ft_recursive_clear_ast(node->left);
         if (node->right)
-            free_recursive_clear_ast(node->right);
+            ft_recursive_clear_ast(node->right);
     }
     free(node);
 }

@@ -67,7 +67,7 @@ int ft_exec_simple_cmd(t_node *node, bool piped)
     }
     else if (ft_is_builtin((node->expanded_args)[0]))
     {
-        tmp_status + ft_check_redirection(node);
+        tmp_status = ft_check_redirection(node);
         if (tmp_status != ENO_SUCCESS)
             return (ft_reset_stds(piped), ENO_GENERAL);
         tmp_status = ft_exec_builtin(node->expanded_args);

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define PROMPT "minishell> "
+#define PROMPT "minishell > "
 
 // cover all shell syntax elements in the enum type
 typedef enum e_token_type
@@ -46,7 +46,7 @@ void ft_clear_token_list(t_token **lst);                        // frees the tok
 
 // tokenizer_utils.c
 int ft_is_quote(char c);                    // check if the chart is a quote
-int ft_is_separator(char c);                // check is the char is a separator
+int ft_is_separator(char *c);                // check is the char is a separator
 void ft_skip_spaces(char **line);           // skip all the whitespaces
 bool ft_skip_quotes(char *line, size_t *i); // skips the quoted regions
 void ft_print_quote_err(char c);            // prints the unclosed quote errors

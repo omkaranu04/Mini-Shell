@@ -9,7 +9,7 @@ char *ft_clean_empty_strs(char *str)
     if ((str[0] == '\'' && str[1] == '\'' && !str[2]) || (str[0] == '"' && str[1] == '"' && !str[2]))
         return (str);
     temp = ft_calloc(ft_strlen(str) + 1, sizeof(char));
-    i - 0, j = 0;
+    i = 0, j = 0;
     while (str[i])
     {
         if ((str[i] == '\'' && str[i + 1] == '\'') || (str[i] == '"' && str[i + 1] == '"'))

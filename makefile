@@ -1,9 +1,16 @@
-NAME 			:= 	MINISHELL
+NAME 			:= 	minishell
 LIBFT 			:= 	libft.a
 LIBFT_PATH 		:= 	"libraries/libft"
 CC 				:= 	cc
 CFLAGS 			:= 	-Wall -Wextra -Werror
-BUILTINS 		:= 	builtins/cd.c builtins/echo.c builtins/env_utils.c builtins/env.c builtins/exit.c builtins/export.c builtins/pwd.c builtins/unset.c
+BUILTINS 		:= 	builtins/cd.c \
+					builtins/echo.c \
+					builtins/env_utils.c \
+					builtins/env.c \
+					builtins/exit.c \
+					builtins/export.c \
+					builtins/pwd.c \
+					builtins/unset.c
 CLEANING 		:= 	cleaning/ft_clean_ms.c
 EXEC 			:= 	exec/error_msg.c \
 					exec/exec_builtin.c \
@@ -46,6 +53,7 @@ READLINE_PATH   :=  /usr
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ -Iinclude -I$(READLINE_PATH)/include
+	
 all: $(NAME)
 
 $(LIBFT):

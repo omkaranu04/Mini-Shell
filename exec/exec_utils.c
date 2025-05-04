@@ -19,13 +19,13 @@ void *ft_garbage_collector(void *ptr, bool clean)
     }
     else
     {
-        ft_lsadd_back(&garbage_list, ft_lstnew(ptr));
+        ft_lstadd_back(&garbage_list, ft_lstnew(ptr));
         return ptr;
     }
 }
 
 // checks if a string is matches a delimiter, ignoring the quotes in the delimiter
-int ft_is_delimiter(char *delimiter, char *str)
+bool ft_is_delimiter(char *delimiter, char *str)
 {
     while (*str)
     {

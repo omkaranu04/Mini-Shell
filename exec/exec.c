@@ -51,3 +51,29 @@ static int ft_exec_pipeline(t_node *tree)
     }
     return ENO_GENERAL;
 }
+
+int ft_exec_node(t_node *tree, bool piped)
+{
+    int status;
+    if (!tree)
+        return 1;
+    if (tree->type == N_PIPE)
+        return ft_exec_pipeline(tree);
+    else if (tree->type == N_AND)
+    {
+        status = ft_exec_node(tree->left, false);
+        if (status == ENO_SUCCESS)
+            return ft_exec_node(tree->right, false);
+        return status;
+    }
+    else if (tree->type == N_OR)
+    {
+        status = ft_exec_node(tree->left, false);
+        if (status == ENO_SUCCESS)
+            return status;
+        return ft_exec_node(tree->right, false);
+    }
+    else
+        return ft_exec_simple_cmd(tree, piped);
+    return ENO_GENERAL;
+}

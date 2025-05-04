@@ -32,7 +32,7 @@ t_token *ft_tokenization_handler(char *line)
     {
         if (err)
             return (ft_clear_token_list(&token_list), NULL);
-        if (ft_isspace(&line))
+        if (ft_isspace(*line))
             ft_skip_spaces(&line);
         else if (!ft_strncmp(line, "<", 1) || !ft_strncmp(line, ">", 1) || !ft_strncmp(line, "|", 1) || !ft_strncmp(line, "&&", 2) || !ft_strncmp(line, "(", 1) || !ft_strncmp(line, ")", 1))
             err = (!ft_handle_separator(&line, &token_list) && 1);

@@ -11,7 +11,7 @@ static int ft_heredoc_expand_writer(char *str, size_t i, int fd)
     if (i != start)
     {
         temp = ft_garbage_collector(ft_substr(str, start, i), false);
-        temp = ft_get_envlist_val(temp);
+        temp = ft_get_envlst_val(temp);
         if (temp)
             ft_putstr_fd(temp, fd);
     }

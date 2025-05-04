@@ -17,9 +17,12 @@ char *ft_handle_dollar(char *str, size_t *i)
         return ft_itoa(g_minishell.exit_s);
     }
     else if (!ft_is_valid_var_char(str[*i]))
+        return ft_strdup("$");
+    start = *i;
+    while (ft_is_valid_var_char(str[*i]))
         (*i)++;
     var = ft_substr(str, start, *i - start);
-    env_val = ft_get_envlist_val(var);
+    env_val = ft_get_envlst_val(var);
     if (!env_val)
         return (free(var), ft_strdup(""));
     return (free(var), ft_strdup(env_val));

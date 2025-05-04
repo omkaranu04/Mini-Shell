@@ -6,7 +6,7 @@ static void ft_init_minishell(char **env)
 {
     ft_memset(&g_minishell, 0, sizeof(t_minishell));
     g_minishell.environ = env;
-    ft_init_envlist();
+    ft_init_envlst();
     g_minishell.stdin = dup(0);
     g_minishell.stdout = dup(1);
     tcgetattr(STDIN_FILENO, &g_minishell.original_term);
@@ -18,7 +18,7 @@ static void ft_start_execution(void)
     ft_init_tree(g_minishell.ast);
     if (g_minishell.heredoc_sigint)
     {
-        ft_clear_ast(g_minishell.ast);
+        ft_clear_ast(&g_minishell.ast);
         g_minishell.heredoc_sigint = false;
     }
     tcsetattr(STDIN_FILENO, TCSANOW, &g_minishell.original_term);

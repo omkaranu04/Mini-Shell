@@ -94,15 +94,15 @@ int ft_cd(char *path); // change directory
 int ft_echo(char **args); // prints args to stdout
 
 // env_utils.c
-char *ft_get_envlist_val(char *key);                         // get value by key
-bool ft_env_entry_exists(char *key);                         // check if key exists
+char *ft_get_envlst_val(char *key);                        // get value by key
+bool ft_env_entry_exists(char *key);                        // check if key exists
 void ft_update_envlst(char *key, char *value, bool create); // update or create entry
 
 // env.c
 // functions for extracting keys/values and initializing the env list
 char *ft_extract_key(char *str);
 char *ft_extract_value(char *str);
-void ft_init_envlist(void);
+void ft_init_envlst(void);
 int ft_env(void);
 
 // exit.c
@@ -165,7 +165,7 @@ void ft_heredoc(t_io_node *io, int p[2]); // handles heredoc
 bool ft_match_star(char *pattern, char *str); // matches pattern with *
 
 // ft_clean_empty_strs.c
-void *ft_clean_empty_strs(char *str); // removes empty strings
+char *ft_clean_empty_strs(char *str); // removes empty strings
 
 // ft_exapnd_utils.c
 bool ft_is_valid_var_char(char c);                // checks if char is a valid in var name
@@ -175,7 +175,7 @@ char *ft_handle_dquotes(char *str, size_t *i);    // handles double quoted strin
 
 // ft_expand.c
 char *ft_handle_dollar(char *str, size_t *i); // handles var expansion
-char **ft_exapnd(char *str);                  // expands the input string
+char **ft_expand(char *str);                  // expands the input string
 
 // ft_expander_split.c
 char **ft_expander_split(char const *s); // splits the expanded string

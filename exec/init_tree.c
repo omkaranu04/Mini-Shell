@@ -14,7 +14,7 @@ void ft_heredoc(t_io_node *io, int p[2])
     char *line, *quotes;
     signal(SIGINT, ft_heredoc_sigint_handler);
     quotes = io->value;
-    while (*quotes & *quotes != '"' && *quotes != '\'')
+    while (*quotes && *quotes != '"' && *quotes != '\'')
         quotes++;
     while (1)
     {
@@ -53,7 +53,7 @@ static void ft_init_leaf(t_node *node)
     t_io_node *io;
     int p[2], pid;
     if (node->args)
-        node->expanded_args = ft_exapnd(node->args);
+        node->expanded_args = ft_expand(node->args);
     io = node->io_list;
     while (io)
     {
@@ -69,7 +69,7 @@ static void ft_init_leaf(t_node *node)
             io->here_doc = p[0];
         }
         else
-            io->expanded_value = ft_exapnd(io->value);
+            io->expanded_value = ft_expand(io->value);
         io = io->next;
     }
 }

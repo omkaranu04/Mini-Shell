@@ -21,5 +21,5 @@ void ft_clean_ms(void)
     ft_clear_ast(&g_minishell.ast);
     ft_clear_envlist();
     rl_clear_history();
-    tcsetattr(STDIN_FILENO, TCSANOW, &g_minishell.term);
+    tcsetattr(STDIN_FILENO, TCSANOW, &g_minishell.original_term);
 }

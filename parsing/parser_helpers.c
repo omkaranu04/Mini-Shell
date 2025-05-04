@@ -18,7 +18,7 @@ bool ft_get_io_list(t_io_node **io_list)
             return (ft_set_parse_err(E_SYNTAX), false);
         temp_io_node = ft_new_io_node(redire_type, g_minishell.curr_token->value);
         if (!temp_io_node)
-            return (ft_set_parse_err(E_MEM, false);
+            return (ft_set_parse_err(E_MEM), false);
         ft_append_io_node(io_list, temp_io_node);
         ft_get_next_token();
     }
