@@ -17,12 +17,12 @@ int ft_isdigit(int c);                                                   // chec
 int ft_isalnum(int c);                                                   // check if the character is alphanumeric
 int ft_isascii(int c);                                                   // check if the character is ascii character
 int ft_isprint(int c);                                                   // check if the character is printable
-int ft_isspace(int c);                                                   // check if the character is a whitespace
+int ft_isspace(char c);                                                   // check if the character is a whitespace
 int ft_toupper(int c);                                                   // convert to uppercase
 int ft_tolower(int c);                                                   // convert to lowercase
 size_t ft_strlen(const char *str);                                       // get the length of the string (excluding the null terminator)
-size_t ft_strs_len(const char **str);                                    // get the number of strings in a NULL-terminated array of strings
-size_t ft_strs_arr_len(const char **str);                                // get the number of arrays in a NULL-terminaed array of string arrays
+size_t ft_strs_len(char **str);                                    // get the number of strings in a NULL-terminated array of strings
+size_t ft_strs_arr_len(char **str);                                // get the number of arrays in a NULL-terminaed array of string arrays
 void *ft_memset(void *b, int c, size_t len);                             // fills a block of memory wioth specified value
 void ft_bzero(void *s, size_t n);                                        // fills a block of memory with zero
 void *ft_memcpy(void *dest, const void *src, size_t n);                  // copies memory from src to dst (no overlap)
