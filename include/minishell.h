@@ -110,7 +110,7 @@ void ft_exit(char **args); // exits the shell
 
 // export.c
 int ft_check_key(char *str); // validate export key
-int ft_export(char **args);  // export variables
+int ft_export(char **argv);  // export variables
 
 // pwd.c
 int ft_pwd(void); // prints the current working directory

@@ -55,7 +55,7 @@ int ft_env(void)
     while (list)
     {
         if (list->value != NULL)
-            printf("%s = %s\n", list->key, list->value);
+            printf("%s=%s\n", list->key, list->value);
         list = list->next;
     }
     return ENO_SUCCESS;

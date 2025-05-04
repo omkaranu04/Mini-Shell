@@ -6,7 +6,7 @@
 // enum for types of nodes in AST
 typedef enum e_node_type
 {
-    N_PIPE, // '\' operation node
+    N_PIPE, // '|' operation node
     N_AND,  // && node
     N_OR,   // || node
     N_CMD   // simple command node
@@ -70,11 +70,11 @@ bool ft_join_args(char **args);           // joins arguments
 t_node *ft_get_simple_cmd(void);          // parses a simple cmd node
 
 // parser_nodes.c
-t_node_type ft_get_node_type(t_token_type type);                 // mpaps token type to node type
-t_io_type ft_get_io_type(t_token_type type);                     // maps token type to IO type
-t_node *ft_new_node(t_node_type type);                           // creates a new AST node
-t_io_node *ft_new_io_node(t_token_type type, char *value);       // creates a new IO node
-void ft_append_io_node(t_io_node **lst, t_io_node *new_io_node); // appends an io node ot the list
+t_node_type ft_get_node_type(t_token_type type);           // mpaps token type to node type
+t_io_type ft_get_io_type(t_token_type type);               // maps token type to IO type
+t_node *ft_new_node(t_node_type type);                     // creates a new AST node
+t_io_node *ft_new_io_node(t_token_type type, char *value); // creates a new IO node
+void ft_append_io_node(t_io_node **lst, t_io_node *new);   // appends an io node ot the list
 
 // parser_utils.c
 void ft_get_next_token(void);        // get the next token

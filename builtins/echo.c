@@ -5,7 +5,7 @@
 static int ft_check_option(char *s)
 {
     int i = 0;
-    if (s[i] != '-')
+    if (s[0] != '-')
         return 0;
     i++;
     while (s[i])

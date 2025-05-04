@@ -1,10 +1,10 @@
 #include "minishell.h"
 
 // print the error message for invalid variable name
-static int ft_export_err_msg(char *err_msg)
+static int ft_export_err_msg(char *identifier)
 {
     ft_putstr_fd("minishell: export: `", 2);
-    ft_putstr_fd(err_msg, 2);
+    ft_putstr_fd(identifier, 2);
     ft_putstr_fd("': not a valid identifier\n", 2);
     return 1;
 }
@@ -19,7 +19,7 @@ static void ft_export_list(void)
     {
         if (list->value != NULL && (ft_strcmp(list->key, "_") != 0))
         {
-            printf("declare -x %s", list->key);
+            printf("declare -x %s=\"", list->key);
             i = 0;
             while ((list->value)[i])
             {

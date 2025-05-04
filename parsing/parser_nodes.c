@@ -46,16 +46,16 @@ t_io_node *ft_new_io_node(t_token_type type, char *value)
 }
 
 // appends the IO redirection node to a linked list
-void ft_append_io_node(t_io_node **lst, t_io_node *new_node)
+void ft_append_io_node(t_io_node **lst, t_io_node *new)
 {
     t_io_node *curr_node;
     if (!*lst)
     {
-        *lst = new_node;
+        *lst = new;
         return;
     }
     curr_node = *lst;
     while (curr_node && curr_node->next)
         curr_node = curr_node->next;
-    curr_node->next = new_node;
+    curr_node->next = new;
 }

@@ -28,6 +28,8 @@ t_token *ft_tokenization_handler(char *line)
 {
     int err;
     t_token *token_list;
+    err = 0;
+    token_list = NULL;
     while (*line)
     {
         if (err)

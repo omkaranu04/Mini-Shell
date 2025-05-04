@@ -83,6 +83,7 @@ char **ft_expander_split(char const *s)
     char **strs, **tofree;
     if (!s)
         return NULL;
+    i = 0, count = 0;
     while (s[i])
     {
         if (s[i] != ' ' && ++count)

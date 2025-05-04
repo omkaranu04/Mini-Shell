@@ -4,7 +4,6 @@
 bool ft_contains_asterisk(char *str)
 {
     size_t i = 0;
-    ;
     while (str[i])
     {
         if (str[i] == '*')

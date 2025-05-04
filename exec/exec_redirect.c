@@ -46,7 +46,7 @@ int ft_in(t_io_node *io_list, int *status)
 int ft_append(t_io_node *io_list, int *status)
 {
     int fd;
-    if (io_list->expanded_value || io_list->expanded_value[1])
+    if (!io_list->expanded_value || io_list->expanded_value[1])
     {
         *status = ft_err_msg((t_err){ENO_GENERAL, ERRMSG_AMBIGUOUS, io_list->value});
         return (*status);
@@ -60,5 +60,5 @@ int ft_append(t_io_node *io_list, int *status)
     dup2(fd, STDOUT_FILENO);
     close(fd);
     *status = 0;
-    return (*status);
+    return 0;
 }

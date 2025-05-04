@@ -42,6 +42,7 @@ static char **ft_globber_helper(char *str)
     }
     return returned;
 }
+
 // main function to handle globbing
 char **ft_globber(char **expanded)
 {
