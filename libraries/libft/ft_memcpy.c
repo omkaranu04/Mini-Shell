@@ -1,5 +1,8 @@
 #include "libft.h"
 
+// copy the block of memory from src to dst of size n
+// returns the pointer to the dst block
+// does not handle memory overlaps
 void *ft_memcpy(void *dst, const void *src, size_t n)
 {
     size_t i = 0;

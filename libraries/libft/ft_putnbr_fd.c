@@ -1,5 +1,7 @@
 #include "libft.h"
 
+// puts an integer to the specified file descriptor recursively
+// if the number is -ve then also put the -ve sign in the fd
 void ft_putnbr_fd(int n, int fd)
 {
     long int num = n;

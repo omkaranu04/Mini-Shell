@@ -1,5 +1,7 @@
 #include "libft.h"
 
+// count -> number of elements, size -> size of each element
+// allocates memory for the array, and init all bytes ot 0 using ft_memset
 void *ft_calloc(size_t count, size_t size)
 {
     void *temp;

@@ -1,5 +1,6 @@
 #include "libft.h"
 
+// ocnvert the string to an integer in base 10
 int ft_atoi(const char *str)
 {
     size_t i;
@@ -22,7 +23,7 @@ int ft_atoi(const char *str)
     {
         sum = sum * 10 + (str[i] - '0');
         if (sum < 0)
-            return ((sign != -1) * -1);
+            return ((sign != -1) * -1); // handling overflow, -1 on +ve, 0 on -ve
         i++;
     }
     return sum * sign;

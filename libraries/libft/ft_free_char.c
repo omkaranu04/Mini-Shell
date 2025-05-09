@@ -1,5 +1,6 @@
 #include "libft.h"
 
+// frees an array of strings
 void ft_free_char2(char **tofree)
 {
     size_t i;
@@ -11,6 +12,7 @@ void ft_free_char2(char **tofree)
     free(tofree);
 }
 
+// frees an array of arrays of strings
 void ft_free_char3(char ***tofree)
 {
     size_t i;

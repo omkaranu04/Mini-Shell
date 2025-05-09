@@ -1,5 +1,6 @@
 #include "libft.h"
 
+// return the decimal based on the base
 static int base_digit(char c, int base)
 {
     char *low, *up;
@@ -13,6 +14,7 @@ static int base_digit(char c, int base)
     return -1;
 }
 
+// convert the string to an integer based on the base
 int ft_atoi_base(const char *str, int base)
 {
     size_t i;
@@ -35,7 +37,7 @@ int ft_atoi_base(const char *str, int base)
     {
         sum = sum * base + base_digit(str[i], base);
         if (sum < 0)
-            return ((sign != -1) * -1);
+            return ((sign != -1) * -1); // overflow handles -1 on +ve, 0 on -ve
         i++;
     }
     return (sum * sign);

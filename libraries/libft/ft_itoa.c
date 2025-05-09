@@ -1,5 +1,6 @@
 #include "libft.h"
 
+// reverses the string and attaches the sign and then returns the final string
 static char *ft_filler(char *nums, int num_len, int sign)
 {
     size_t i;
@@ -14,6 +15,8 @@ static char *ft_filler(char *nums, int num_len, int sign)
     return str;
 }
 
+// function to convert an integer to string
+// here the reverse number strinng is created and the sign is determined
 char *ft_itoa(int n)
 {
     int sign = 0, i;
