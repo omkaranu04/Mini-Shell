@@ -1,5 +1,7 @@
 #include "libft.h"
 
+// join two strings s1 and s2 to a new string
+// return a pointer to the new string
 char *ft_strjoin(char const *s1, char const *s2)
 {
     char *joined;

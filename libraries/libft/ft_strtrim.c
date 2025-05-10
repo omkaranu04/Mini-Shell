@@ -1,5 +1,7 @@
 #include "libft.h"
 
+// c -> char to be checked, set -> a string of chaars to match against
+// if match then return 1, else return 0
 static int ft_matchset(char c, char const *set)
 {
     size_t i = 0;
@@ -12,6 +14,8 @@ static int ft_matchset(char c, char const *set)
     return 0;
 }
 
+// s1 -> the inpput string to trim, set -> the set of chars to trim
+// returns the trimmed string
 static char *ft_trimmer(char const *s1, char const *set)
 {
     size_t i = 0, j = 0;
@@ -30,6 +34,8 @@ static char *ft_trimmer(char const *s1, char const *set)
     return trimmed;
 }
 
+// main entry point for the fuction calls
+// s1 -> the input string to trim, set -> the set of chars to trim
 char *ft_strtrim(char const *s1, char const *set)
 {
     if (!s1 || !set)

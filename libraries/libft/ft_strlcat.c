@@ -1,5 +1,8 @@
 #include "libft.h"
 
+// concateate the string src to the end of string dst, whila always maintaining the 
+// NULL termination for safety
+// truncation is detetcted if the return val >= dstsize
 size_t ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
     size_t dst_len, i, j;

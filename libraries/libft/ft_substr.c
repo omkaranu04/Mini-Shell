@@ -1,5 +1,7 @@
 #include "libft.h"
 
+// return the substring specified from the start index to the specified length
+// return the pointer to the new substring formed
 char *ft_substr(char const *s, unsigned int start, size_t len)
 {
     char *substr;

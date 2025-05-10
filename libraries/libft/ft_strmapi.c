@@ -1,5 +1,9 @@
 #include "libft.h"
 
+// applt the function f to each character of the string s
+// the modified string is returned
+// unlike in striteri this function modifies a new string and returns it
+// the original string is not modified
 char *ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
     char *new_str;

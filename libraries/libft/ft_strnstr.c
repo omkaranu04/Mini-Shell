@@ -1,5 +1,7 @@
 #include "libft.h"
 
+// helper function to compare two strings up to a specified length
+// returns 1 if they are equal, 0 otherwise
 static int ft_cmp(const char *s1, const char *s2, size_t len)
 {
     size_t i = 0;
@@ -14,6 +16,8 @@ static int ft_cmp(const char *s1, const char *s2, size_t len)
     return 0;
 }
 
+// finds the first occurence of the string needle in the first len characters of the
+// string haystack
 char *ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
     size_t i = 0;
@@ -26,6 +30,7 @@ char *ft_strnstr(const char *haystack, const char *needle, size_t len)
     {
         if (haystack[i] == needle[0])
         {
+            // if first character matches call the helper function
             if (ft_cmp(haystack + i, needle, len - i))
                 return ((char *)(haystack + i));
         }

@@ -1,5 +1,7 @@
 #include "libft.h"
 
+// copy a string to a new allocated memory block and 
+// return a pointer to it
 char *ft_strdup(const char *s1)
 {
     char *s2;
