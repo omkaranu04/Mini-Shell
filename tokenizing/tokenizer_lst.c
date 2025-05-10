@@ -1,17 +1,18 @@
 #include "minishell.h"
 
-// creates a new token node for the token list
+// creates a new token of the desired type and returns the pointer to the same
 t_token *ft_new_token(char *value, t_token_type type)
 {
     t_token *new_token = (t_token *)ft_calloc(1, sizeof(t_token));
     if (!new_token)
         return NULL;
-    new_token->value = value;
     new_token->type = type;
+    new_token->value = value;
     return new_token;
 }
 
-// maintains a doubly linked list of tokens, add to that
+// adds the given new token to the end of the tokens list
+// implemented as doubly linked list
 void ft_token_list_add_back(t_token **lst, t_token *new_token)
 {
     t_token *curr_node;
@@ -27,7 +28,7 @@ void ft_token_list_add_back(t_token **lst, t_token *new_token)
     new_token->prev = curr_node;
 }
 
-// clears the token list
+// clears the given list, frees its content as well as the list structure
 void ft_clear_token_list(t_token **lst)
 {
     t_token *curr_node, *next;

@@ -6,6 +6,19 @@
 
 #define PROMPT "minishell$ "
 
+/*
+    T_IDENTIFIER    ->  cmd anmes, args, or other text
+    T_LESS          -> < (input redirection)
+    T_GREAT         -> > (output redirection)
+    T_DLESS         -> << (here-doc redirection)
+    T_DGREAT        -> >> (append redirection)
+    T_PIPE          -> | (pipe)
+    T_O_PARENT      -> ( (open parenthesis)
+    T_C_PARENT      -> ) (close parenthesis)
+    T_AND           -> && (logical AND)
+    T_OR            -> || (logical OR)
+    T_NL            -> \n (newline token)
+*/
 typedef enum e_token_type
 {
     T_IDENTIFIER,
@@ -21,6 +34,14 @@ typedef enum e_token_type
     T_NL,
 } t_token_type;
 
+/*
+    The structure represents a single token in the token list
+    implemented as a doubly linked list.
+    t_token_type type       -> token type from the enum above
+    char *value             -> actual string content of the token
+    struct s_token *next    -> next pointer of DLL
+    struct s_token *prev    -> prev pointer of DLL
+*/
 typedef struct s_token
 {
     t_token_type type;

@@ -1,6 +1,10 @@
 #include "minishell.h"
 
-// creates a new token for shell operators/separators
+/*
+    the function adds a separator token to the token list
+    advances the line pointer move past the separator
+    returns 1 on success, 0 on failure
+*/
 int ft_append_separator(t_token_type type, char **line_ptr, t_token **token_list)
 {
     t_token *token;
@@ -9,12 +13,20 @@ int ft_append_separator(t_token_type type, char **line_ptr, t_token **token_list
         return 0;
     ft_token_list_add_back(token_list, token);
     (*line_ptr)++;
+
+    // if double separator, move past the second char
     if (type == T_DLESS || type == T_DGREAT || type == T_OR || type == T_AND)
         (*line_ptr)++;
     return 1;
 }
 
-// extracts the identifiers from the input
+/*
+    function handles the creation of the identifier tokens
+    identifies the length of the identifier till it finds a separator
+    if a quote is found, it skips over the quote 
+    once the length of the identifier is known it is extracted using the ft_substr function
+    and the identifier is inserted in the token list and the line ptr advances to the end of identifier
+*/
 int ft_append_identifier(char **line_ptr, t_token **token_list)
 {
     char *tmp_line, *value;

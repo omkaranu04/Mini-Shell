@@ -1,6 +1,11 @@
 #include "minishell.h"
 
-// handles the shell operators and syntax elements
+/*
+    the function handles shell operators and special syntax elements
+    it does a series of conditional checks to identify which token is present
+    at the current position in the line
+    for each case it calls the ft_append_separator func
+*/
 int ft_handle_separator(char **line_ptr, t_token **token_list)
 {
     if (!ft_strncmp(*line_ptr, "<<", 2))
@@ -23,7 +28,16 @@ int ft_handle_separator(char **line_ptr, t_token **token_list)
         return (ft_append_separator(T_PIPE, line_ptr, token_list) && 1);
 }
 
-// initializes the token list
+/*
+    this function is the main tokenization controller
+    it iterates over each char of the line until it reaches the end
+        - If the current character is whitespace, it skips all consecutive whitespace using ft_skip_spaces
+        - If the current character is a separator, it calls ft_handle_separator to handle it
+        - Otherwise, it assumes the current position is the start of an identifier and calls ft_append_identifier
+        - it sets the error flag if either of the function call fails
+
+    finally returns the token list
+*/
 t_token *ft_tokenization_handler(char *line)
 {
     int err;
