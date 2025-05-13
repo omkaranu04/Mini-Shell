@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-// frees all the nodes in the io redirection list
+// frees an entire doubly linked list of IO redirection nodes
 void ft_clear_io_list(t_io_node **lst)
 {
     t_io_node *curr_node, *next;
@@ -18,7 +18,7 @@ void ft_clear_io_list(t_io_node **lst)
     *lst = NULL;
 }
 
-// clears a single command node
+// clears up a single command AST node i.e. of type N_CMD
 void ft_clear_cmd_node(t_node *node)
 {
     if (!node)
@@ -28,7 +28,7 @@ void ft_clear_cmd_node(t_node *node)
     ft_free_char2(node->expanded_args);
 }
 
-// clears the entire AST recursively
+// recursively clear up the AST of t_node structures
 void ft_recursive_clear_ast(t_node *node)
 {
     if (!node)
@@ -45,7 +45,8 @@ void ft_recursive_clear_ast(t_node *node)
     free(node);
 }
 
-// clears the entire AST and sets the pointer to NULL
+// top level function to clear the AST
+// clears the entire AST and the token list
 void ft_clear_ast(t_node **ast)
 {
     ft_recursive_clear_ast(*ast);

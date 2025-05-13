@@ -1,6 +1,11 @@
 #include "minishell.h"
 
-// parse atomic elements like commands or parenthesized groups
+/*
+    unwanted start terms -> the function rejects the stray |, &&, ||, ), at the start of the term
+    paranthesized subexpression -> recursively parses an expression if it sees (, and then expects a )
+    simple commmand -> calls the funtion to parse the simple command
+
+*/
 t_node *ft_term(void)
 {
     t_node *node;
@@ -11,7 +16,7 @@ t_node *ft_term(void)
     else if (g_minishell.curr_token->type == T_O_PARENT)
     {
         ft_get_next_token();
-        node = ft_expression(0);
+        node = ft_expression(0); // parse inside the paranthesis starting with the lowest precedence
         if (!node)
             return (ft_set_parse_err(E_MEM), NULL);
         if (!g_minishell.curr_token || g_minishell.curr_token->type != T_C_PARENT)
@@ -23,7 +28,13 @@ t_node *ft_term(void)
         return ft_get_simple_cmd();
 }
 
-// implements the precedence climbing algorithm
+/*
+    first parse the left term
+    while the next token is a binary operator whose precedence >= min_prec, set the prec for the right term with +1
+    then parse the right term by recursion call
+    combine the left and right terms with the operator
+    return the left term
+*/
 t_node *ft_expression(int min_prec)
 {
     t_node *left, *right;
@@ -51,7 +62,10 @@ t_node *ft_expression(int min_prec)
     return left;
 }
 
-// creates the AST nodes for the operators
+/*
+    create a new internal AST node of type N_PIPE, N_AND, N_OR
+    links the two subtrees as its children
+*/
 t_node *ft_combine(t_token_type op, t_node *left, t_node *right)
 {
     t_node *node;
@@ -65,7 +79,13 @@ t_node *ft_combine(t_token_type op, t_node *left, t_node *right)
     return node;
 }
 
-// starts parsing from the first token
+/*
+    entry point for the parser
+    init the curr token to the first token in the list
+    parse the entire token stream with lowest precedence
+    if any tokens remain thats a syntax error
+    return the AST
+*/
 t_node *ft_parse(void)
 {
     t_node *ast;

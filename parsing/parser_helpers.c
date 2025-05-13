@@ -1,6 +1,13 @@
 #include "minishell.h"
 
-// parse io redirections and create a linked list for the same
+/*
+    this function creates a new IO node while parsing the command
+    while the current token is a redirection operator proceed, remember the redirection
+    get the next token, which should be filename/token
+    if not a filename, set syntax error and return
+    if correctly identifier is found then create a new IO node, and append it to the IO list
+    consume the filename token
+*/
 bool ft_get_io_list(t_io_node **io_list)
 {
     t_token_type redire_type;
@@ -25,13 +32,18 @@ bool ft_get_io_list(t_io_node **io_list)
     return true;
 }
 
-// joins multiple T_IDENTIFIER tokens into a single string
+/*
+    the function accumulates consecutive identifier tokens onto one single string
+    separated by spaces
+    after the first argument, keep on appending the next identifier token
+    until a non-identifier token is found
+*/
 bool ft_join_args(char **args)
 {
     char *to_free;
     if (g_minishell.parse_err.type)
         return false;
-    if (!*args)
+    if (!*args) // if this is the first argument start from an empty string
         *args = ft_strdup("");
     if (!*args)
         return false;
@@ -47,7 +59,12 @@ bool ft_join_args(char **args)
     return true;
 }
 
-// create a N_CMD node containing the argument and io redirection list
+/*
+    this funuction creates a command node of type N_CMD
+    if the current token is an identifier, call ft_join_args to accumulate the args
+    if the curr token is of redirection type, call ft_get_io_list to create the IO list
+    return the populated t_node for the AST being created
+*/
 t_node *ft_get_simple_cmd(void)
 {
     t_node *node;

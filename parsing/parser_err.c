@@ -1,10 +1,16 @@
 #include "minishell.h"
 
+// simply sets the global parsing error type to the given type
 void ft_set_parse_err(t_parse_err_type type)
 {
     g_minishell.parse_err.type = type;
 }
 
+/*
+    checks the global error type set in g_minishell
+    if it is a syntax error, then print the error message, and set exit status to 258
+    regardless of the error type, clear the AST and the token list
+*/
 void ft_handle_parse_err(void)
 {
     t_parse_err_type type;
@@ -19,7 +25,7 @@ void ft_handle_parse_err(void)
     {
         if (type == E_SYNTAX)
         {
-            if (!g_minishell.curr_token)
+            if (!g_minishell.curr_token) // determmine which token triggered the error
                 token_type = T_NL;
             else
                 token_type = g_minishell.curr_token->type;
