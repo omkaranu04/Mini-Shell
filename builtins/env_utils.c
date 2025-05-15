@@ -1,6 +1,9 @@
 #include "minishell.h"
 
-// checks if the env var with the given key exists in the env list
+/*
+    checks if the env var with a specific key exists
+    in the environment list
+*/
 bool ft_env_entry_exists(char *key)
 {
     t_env *envlist;
@@ -14,7 +17,12 @@ bool ft_env_entry_exists(char *key)
     return false;
 }
 
-// creates a new env var node with the given key and value
+/*
+    creates a new env var node with the given key and value
+    it duplicates the provided key using the ft_strdup and registers it with
+    the garbage collector
+    if the value is provided it duplicates it and registers it with the garbage collector
+*/
 static t_env *ft_envlst_new(char *key, char *value)
 {
     t_env *new_;
@@ -28,7 +36,10 @@ static t_env *ft_envlst_new(char *key, char *value)
     return new_;
 }
 
-// retrieves the value of the env var with the given key
+/*
+    the function retrieves the value of an env var
+    given its key
+*/
 char *ft_get_envlst_val(char *key)
 {
     t_env *envlist;
@@ -42,7 +53,10 @@ char *ft_get_envlst_val(char *key)
     return NULL;
 }
 
-// appends a new env var node to the end of the env list
+/*
+    the function adds a new environment variable node to the 
+    end of the list
+*/
 void ft_envlst_back(t_env *new_)
 {
     t_env *curr;
@@ -57,7 +71,10 @@ void ft_envlst_back(t_env *new_)
     curr->next = new_;
 }
 
-// updates the value of an env var if it exists, or creates it if not and 'create' is true
+/*
+    the function updates an existing env var or 
+    creates a new one if it doesn't exist
+*/
 void ft_update_envlst(char *key, char *value, bool create)
 {
     t_env *envlist;

@@ -1,6 +1,9 @@
 #include "minishell.h"
 
-// checks if the string s consists of only digits
+/*
+    checks if the string consists of onlyy digits
+    used ot validate that exit arguments are numericH
+*/
 static bool ft_isnumber(char *s)
 {
     int i = 0;
@@ -13,7 +16,10 @@ static bool ft_isnumber(char *s)
     return true;
 }
 
-// skips leading spaces in teh arg string, and detects if there is any sign, updating the sign variable
+/*
+    handles the whitespaces and sign characters at the beginning of the string
+    increments the index and updates the sign variable
+*/
 static void ft_skip_spaces_and_get_sign(char *s, int *i, int *sign)
 {
     while (s[*i] && s[*i] == ' ')
@@ -26,7 +32,9 @@ static void ft_skip_spaces_and_get_sign(char *s, int *i, int *sign)
     }
 }
 
-// converts a string to an integer exit status, handling errors if the string is not a valid number or overflows
+/*
+    funnction converts a string to an integer for the exit status
+*/
 static int ft_exittoi(char *s)
 {
     int i = 0, sign = 1, exit_s;
@@ -51,7 +59,12 @@ static int ft_exittoi(char *s)
     return ((result * sign) % 256);
 }
 
-// implements the actual exit command in the minishell
+/*
+    implements the exit builtin command
+    it initialises the exit_s with the current exit status from the global state
+    if valid arg proceed, o/w print error message
+    finally cleans up the shell resources and exits wuth the determined status
+*/
 void ft_exit(char **args)
 {
     int exit_s = g_minishell.exit_s;

@@ -1,7 +1,9 @@
 #include "minishell.h"
 
-// funcntion to check if the string has '-n' option which in bash
-// supresses the newline
+/*
+    function cheks if the string is a valid '-n'
+    option for the echo command
+*/
 static int ft_check_option(char *s)
 {
     int i = 0;
@@ -17,7 +19,13 @@ static int ft_check_option(char *s)
     return 1;
 }
 
-// implements the echo command, handling options and argument printing
+/*
+    "the -n option in echo suppresses the trailing newline"
+    starts by checking for options in the commmand, sets oopt to 1 if -n is present
+    then it prints remaining args to stdout, adds space between args except for the last one
+    if no -n option is present, it adds a newline at the end
+    returns 0 on success
+*/
 int ft_echo(char **args)
 {
     int i = 1, opt = 0;

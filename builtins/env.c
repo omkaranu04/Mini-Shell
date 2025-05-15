@@ -1,6 +1,10 @@
 #include "minishell.h"
 
-// extracts the key from the environment variable string of the form "key=value"
+/*
+    the function extracts the key portion of the
+    env var string
+    if no equal sign is found it returns a duplicate of the entire string
+*/
 char *ft_extract_key(char *str)
 {
     size_t i = 0;
@@ -13,7 +17,11 @@ char *ft_extract_key(char *str)
     return ft_strdup(str);
 }
 
-// extracts the value part from the "key=value" string
+/*
+    the funtion extracts the value portion of the
+    env var string
+    if no equal sign is found it returns NULL
+*/
 char *ft_extract_value(char *str)
 {
     size_t i = 0;
@@ -29,7 +37,12 @@ char *ft_extract_value(char *str)
     return NULL;
 }
 
-// populates the minishell's internal env var linked list from the inherited env
+/*
+    "used to populate the internal env from the system's env"
+    the function initializes the shell's env var linked list
+    it iterates through the environ array, for each of the string it extracts
+    it adds the key-value pair after extracting
+*/
 void ft_init_envlst(void)
 {
     int i;
@@ -47,7 +60,9 @@ void ft_init_envlst(void)
     }
 }
 
-// implements the env builtin command, printing all env var that have a value
+/*
+    the function prints the env vars to stdout
+*/
 int ft_env(void)
 {
     t_env *list;

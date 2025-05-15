@@ -1,7 +1,9 @@
 #include "minishell.h"
 
-// implements the pwd command
-// prints the current working directory
+/*
+    extracts the current working directory
+    ans then outputs it to stdout
+*/
 int ft_pwd(void)
 {
     char *cwd;

@@ -18,12 +18,27 @@
 #include "tokenizing.h"
 #include "parsing.h"
 
+/*
+    A singly LL node representing environment variables
+    key   -> the name of the variable
+    value -> the value of the variable
+    next  -> pointer to the next node in the list
+*/
 typedef struct s_env
 {
     char *key, *value;
     struct s_env *next;
 } t_env;
 
+/*
+    Error-message identifiers for execution failures
+    ERRMSG_CMD_NOT_FOUND    -> command not found
+    ERRMSG_NO_SUCH_FILE     -> no such file or directory
+    ERRMSG_PERM_DENIED      -> permission denied
+    ERRMSG_AMBIGUOUS        -> ambiguous redirect
+    ERRMSG_TOO_MANY_ARGS    -> too many arguments
+    ERRMSG_NUMERIC_REQUI    -> numeric argument required
+*/
 typedef enum e_err_msg
 {
     ERRMSG_CMD_NOT_FOUND,
@@ -34,6 +49,14 @@ typedef enum e_err_msg
     ERRMSG_NUMERIC_REQUI
 } t_err_msg;
 
+/*
+    Shell exit-status codes, same as Bash conventions
+    ENO_SUCCESS        -> success
+    ENO_GENERAL        -> general error
+    ENO_CANT_EXEC      -> command found but cannot execute
+    ENO_NOT_FOUND      -> command not found
+    ENO_EXEC_255       -> command found but exited with status 255
+*/
 typedef enum e_err_no
 {
     ENO_SUCCESS,
@@ -43,12 +66,23 @@ typedef enum e_err_no
     ENO_EXEC_255 = 255
 } t_err_no;
 
+/*
+    Used when traversing or printing the AST
+    TD_LEFT  -> left child
+    TD_RIGHT -> right child
+*/
 typedef enum e_ast_direction
 {
     TD_LEFT,
     TD_RIGHT
 } t_ast_direction;
 
+/*
+    Used to hold an execution error instance:
+    no      -> numeric exit code
+    msg     -> error message type
+    cause   -> error message string
+*/
 typedef struct s_err
 {
     t_err_no no;
@@ -56,12 +90,31 @@ typedef struct s_err
     char *cause;
 } t_err;
 
+/*
+    Result of searching for a command in the PATH 
+    err     -> any error encountered
+    path    -> the resolved full path or NULL
+*/
 typedef struct s_path
 {
     t_err err;
     char *path;
 } t_path;
 
+/*
+    Global Shell State (accessed via g_minishell)
+    char *line                      -> raw input line from the user
+    t_token *tokens, *curr_token    -> head, and cursor of the token list
+    t_node *ast                     -> pointer to the parsed AST
+    int exit_s                      -> last exit status
+    bool sigint_child               -> flag for SIGINT in child process
+    t_parse_err parse_err           -> error code for parsing
+    int stdin, stdout               -> file descriptors for stdin and stdout
+    char **environ                  -> environment variables
+    t_env *envlst                   -> linked list of environment variables
+    bool heredoc_sigint             -> flag for SIGINT in heredoc
+    struct termios original_term    -> original terminal settings
+*/
 typedef struct s_minishell
 {
     char *line;

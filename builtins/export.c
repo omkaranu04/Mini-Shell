@@ -1,6 +1,10 @@
 #include "minishell.h"
 
-// print the error message for invalid variable name
+/*
+    the function prints a standardized err message
+    when an invalid identifier is provided to the export command
+    outputs the message to stderr
+*/
 static int ft_export_err_msg(char *identifier)
 {
     ft_putstr_fd("minishell: export: `", 2);
@@ -9,7 +13,9 @@ static int ft_export_err_msg(char *identifier)
     return 1;
 }
 
-// prints all exported env var in the format in the printf line, escaping the $ and " just like bash does
+/*
+    the funtion displays all the env vars in the export command format
+*/
 static void ft_export_list(void)
 {
     t_env *list;
@@ -36,7 +42,9 @@ static void ft_export_list(void)
     }
 }
 
-// checks if a string is a valid env var name according to the shell rules
+/*
+    the function validates if a string is a valid env var identifier
+*/
 int ft_check_key(char *str)
 {
     int i = 1;
@@ -51,7 +59,9 @@ int ft_check_key(char *str)
     return 1;
 }
 
-// implements the export builtin command
+/*
+    the main function implementing the export builtin command
+*/
 int ft_export(char **argv)
 {
     int i = 1, exit_s = 0;

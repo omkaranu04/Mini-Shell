@@ -1,22 +1,28 @@
 #include "minishell.h"
-/*
-    - Change to aa specified directory
-    - Change to HOME if no argument is given
-    - Error handling for missing directories or unset HOME
-    - Updating the PWD and OLDPWD environment variables
-*/
 
-// updates the pwd env var to curr working directory after cd
+/*
+    function updates the PWD environment variable to reflect
+    the current working directory
+    helper function ft_update_envlst is used to update the 
+    value of the PWD variable in the environment list
+    returns 0 on success, 1 on failure
+*/
 static int ft_change_pwd(void)
 {
-    char *cwd; // get current working directory
+    char *cwd; 
     cwd = getcwd(NULL, 0);
     if (!cwd)
         return 1;
     return (ft_update_envlst("PWD", cwd, false), 0);
 }
 
-// user runs cd with no args
+/*
+    function handles cd command without any arguments, which means cd to home directory
+    first, it updates the OLDPWD to the cirrent working directory saved in PWD
+    gets the value of the HOME environment variable, changes the directory to it using chdir
+    upadtes the PWD to the home (new) directory
+    returns 0 on success, 1 on failure
+*/
 static int ft_cd_home(void)
 {
     char *home;
@@ -29,8 +35,9 @@ static int ft_cd_home(void)
     return 1;
 }
 
-// user runs cd with a path that doesn't exist
-// prints error message
+/*
+    function formats and prints an error message when directory cannot be found
+*/
 static int fd_cd_err_msg(char *err_msg)
 {
     ft_putstr_fd("minishell: cd: `", 2);
@@ -39,7 +46,11 @@ static int fd_cd_err_msg(char *err_msg)
     return 1;
 }
 
-// main function for the cd command
+/*
+    function to handle the cd command
+    if no path is given calls ft_cd_home
+    else change the directory to the given path using chdir
+*/
 int ft_cd(char *path)
 {
     if (!path)

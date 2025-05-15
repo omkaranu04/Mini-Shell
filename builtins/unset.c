@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+/*
+    the function removes a specific env var from the shell's
+    env list given the key
+*/
 static void ft_unset_helper(char *key)
 {
     t_env *curr, *prev;
@@ -21,6 +25,12 @@ static void ft_unset_helper(char *key)
     }
 }
 
+/*
+    the function implements the main unset command logic
+    the function validates the key name using the ft_check_key
+    and if the key is found and then helper function is called
+    to remove the variable from the env list
+*/
 int ft_unset(char **args)
 {
     int i = 1;
