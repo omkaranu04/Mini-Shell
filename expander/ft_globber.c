@@ -1,6 +1,10 @@
 #include "minishell.h"
 
-// ensurees that the hidden files are included only if the pattern explicitly includes so
+/*
+    this function enforces that dotfiles only match patterns that also begin with a dot
+    and the non dotfiles only match with the non dotfile patterns
+    returns true if both the pattern and filename share same hidden status
+*/
 static bool ft_matches_visibility(char *pattern, char *str)
 {
     if ((pattern[0] == '.' && str[0] == '.') || (pattern[0] != '.' && str[0] != '.'))
@@ -8,14 +12,25 @@ static bool ft_matches_visibility(char *pattern, char *str)
     return false;
 }
 
-// reads the next directory entry from the stream
+/*
+    a wraparound on the readdir function
+    it reads the next directory entry from the open DIR*
+    ans stores in the provided pointer
+*/
 static bool ft_set_direntry(struct dirent **entry, DIR *dir)
 {
     *entry = readdir(dir);
     return true;
 }
 
-// outputs an array of matching filenames, or original string if no matches
+/*
+    counts how many filenames match its pattern using ft_match_count
+    if the word has no * or no matches are found, it returns a two element array containing the original word and NULL
+    else it opens the current directory
+        uses the ft_match_star to test the filename against the pattern
+        uses the ft_matches_visibility to skip dotfiles when pattern not start with .
+        duplicates each matching filename in the result array
+*/
 static char **ft_globber_helper(char *str)
 {
     char **returned;
@@ -43,7 +58,12 @@ static char **ft_globber_helper(char *str)
     return returned;
 }
 
-// main function to handle globbing
+/*
+    applies globbing across an array of expanded words
+    ft_globber_helper is used to fill the 3D array to hold each word's match list
+    falttens and concatenaates all per-word match listst into single NULL terminates array
+    returns the final list of filenames
+*/
 char **ft_globber(char **expanded)
 {
     size_t i = 0, expanded_len = ft_str_arr_len(expanded);

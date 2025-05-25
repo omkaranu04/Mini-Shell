@@ -1,6 +1,9 @@
 #include "minishell.h"
 
-// move to the end on current word, skipping over quoted substrings
+/*
+    advances an index past one word in the input string, stopping at a space
+    or end of string but skipping over entire quoted segments
+*/
 static void ft_skip_word(char const *s, size_t *i)
 {
     char quotes;
@@ -18,7 +21,9 @@ static void ft_skip_word(char const *s, size_t *i)
     }
 }
 
-// allocates memory for each word in result array absed on length of each word
+/*  
+    allocates the array of c strings needed to hold each word
+*/
 static char **ft_allocator(char const *s, char **strs)
 {
     size_t start, i = 0, j = 0;
@@ -39,7 +44,10 @@ static char **ft_allocator(char const *s, char **strs)
     return strs;
 }
 
-// fills the allocated memory with the words from the input string
+/*
+    copies the actual characters of one word into its buffer, again respecting the quotes
+    i.e. copies quotes also if they are present at the start and end of the word
+*/
 static void ft_words_filler(const char *s, char **strs, size_t *i, size_t j)
 {
     char quotes;
@@ -59,7 +67,10 @@ static void ft_words_filler(const char *s, char **strs, size_t *i, size_t j)
     }
 }
 
-// Iterates through the input string and fills each allocated word in strs using ft_words_filler.
+/*
+    iterates over the input and the allocated string pointers in parallel
+    and calling the ft_words_filler to fill in the next buffer
+*/
 static char **ft_filler(char const *s, char **strs)
 {
     size_t i = 0, j = 0;
@@ -76,7 +87,14 @@ static char **ft_filler(char const *s, char **strs)
     return strs;
 }
 
-// do the whole splitting process
+/*
+    top level entry point
+    counts how many number of words appear by calling the ft_skip_words
+    allocated the array of that many pointers + a NULL pointer
+    calls the ft_allocator to allocate each word buffer
+    calls the ft_filler to copy each word to its buffer
+    returns the NULL terminates array of words
+*/
 char **ft_expander_split(char const *s)
 {
     size_t i = 0, count = 0;

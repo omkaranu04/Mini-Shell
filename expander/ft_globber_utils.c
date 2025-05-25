@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-// checks if a string contains an asterisk
+// checks if a given string contains the * character
 bool ft_contains_asterisk(char *str)
 {
     size_t i = 0;
@@ -13,7 +13,7 @@ bool ft_contains_asterisk(char *str)
     return false;
 }
 
-// returns the length of NULL terminated array of strings
+// counts the number of entries in a NULL terminated array of strings
 size_t ft_str_arr_len(char **str_arr)
 {
     size_t i = 0;
@@ -22,7 +22,10 @@ size_t ft_str_arr_len(char **str_arr)
     return i;
 }
 
-// counts how many files/directories in curr dir match the pattern
+/*
+    opens the current directory, iterates all filenames ans uses the ft_match_star to test
+    each name against the pattern, returns how many filenames matched
+*/
 size_t ft_match_count(char *pattern)
 {
     DIR *dir;
@@ -40,7 +43,7 @@ size_t ft_match_count(char *pattern)
     return match_count;
 }
 
-// counts the total number of strings across 2D array of strings
+// returns the count of strings in each of the string arrays within the str_arrs
 static size_t ft_multi_arr_strs_count(char ***str_arrs)
 {
     size_t i = 0, j, strs_count = 0;
@@ -55,7 +58,7 @@ static size_t ft_multi_arr_strs_count(char ***str_arrs)
     return strs_count;
 }
 
-// flattens the 2D array of strings into a single array of strings
+// flattens and concatenates a 3D array of strings into a single NULL terminated array
 char **ft_join_str_arrs(char ***str_arrs)
 {
     size_t i, j, strs_count = ft_multi_arr_strs_count(str_arrs);

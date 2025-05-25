@@ -1,6 +1,9 @@
 #include "minishell.h"
 
-// function removes the empty quotes substrings from a string while preserving other content
+/*
+    the function removes all occurences of empty quoted substrings
+    from an existing string
+*/
 char *ft_clean_empty_strs(char *str)
 {
     size_t i, j, dstsize;

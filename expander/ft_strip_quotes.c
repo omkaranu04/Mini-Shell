@@ -1,6 +1,9 @@
 #include "minishell.h"
 
-// calculate the length of the string without quotes
+/*
+    calculates how many characters the string will have after all the quotes are
+    stripped off
+*/
 static size_t ft_unquoted_strlen(char *str)
 {
     size_t i = 0, len = 0;
@@ -22,7 +25,10 @@ static size_t ft_unquoted_strlen(char *str)
     return len;
 }
 
-// skip quotes and then copy the unquoted string
+/*
+    copies one quoted segment from the source to the dest buffer
+    omitting the surrounding quotes
+*/
 static void ft_unquote_filler(char *str, size_t *i, char *ret, size_t *j)
 {
     char quotes = str[(*i)++];
@@ -31,7 +37,9 @@ static void ft_unquote_filler(char *str, size_t *i, char *ret, size_t *j)
     (*i)++;
 }
 
-// remove quotes from the string and return the cleaned string
+/*
+    builds and returns the full unquoted string
+*/
 char *ft_strip_quotes(char *str)
 {
     char *ret = ft_calloc(1 + ft_unquoted_strlen(str), sizeof(char));

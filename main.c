@@ -1,7 +1,16 @@
 #include "minishell.h"
 
+// global struct to hold the shell state
 t_minishell g_minishell;
 
+/*
+    run once at the start to prepare the shell state:
+        Zeroes out the entire g_minishell struct to default everything to false/NULL/0.
+        Stores the OS-provided env array so built-ins can access raw environment strings.
+        Calls ft_init_envlst() to parse env into a linked list of t_env entries.
+        Duplicates the standard input/output file descriptors (0 and 1) so they can be restored after redirections.
+        Saves the current terminal settings (original_term) for later restoration and configuration.
+*/
 static void ft_init_minishell(char **env)
 {
     ft_memset(&g_minishell, 0, sizeof(t_minishell));
@@ -12,6 +21,9 @@ static void ft_init_minishell(char **env)
     tcgetattr(STDIN_FILENO, &g_minishell.original_term);
 }
 
+/*
+    handles the final steps before and after running the AST
+*/
 static void ft_start_execution(void)
 {
     signal(SIGQUIT, ft_sigquit_handler);
@@ -26,6 +38,10 @@ static void ft_start_execution(void)
     ft_clear_ast(&g_minishell.ast);
 }
 
+/*
+    READ - EVAL - PRINT LOOP
+
+*/
 int main(int argc, char **argv, char **env)
 {
     ((void)argc, (void)argv);

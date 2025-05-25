@@ -1,6 +1,13 @@
 #include "minishell.h"
 
-// expands the shell variables within a string
+/*
+    it parses and expands a $ expression at str[*i] and returns the expansion
+    it advances past the $ symbol
+    if the next char is a digit or '@', returns emoty string, since the forms are not supported
+    if the next char is '?', returns shells last exit code as string
+    if the next char is not a valid variable name character, returns "$" literally
+    else it reads the var name, searches for it in env list and then returns its value
+*/
 char *ft_handle_dollar(char *str, size_t *i)
 {
     size_t start;
@@ -28,7 +35,13 @@ char *ft_handle_dollar(char *str, size_t *i)
     return (free(var), ft_strdup(env_val));
 }
 
-// parses a command string, handling the single and double quotes, vars and unquoted texts
+/*
+    scans an input string character by character, building a new string ret in which
+    Single-quoted segments ('…') are copied verbatim by calling ft_handle_squotes.
+    Double-quoted segments ("…" ) call ft_handle_dquotes, which in turn handles any $ inside them.
+    Dollar signs outside of single quotes invoke ft_handle_dollar.
+    Plain text (no $ or quotes) is gathered by ft_handle_normal_str.
+*/
 static char *ft_cmd_pre_expander(char *str)
 {
     char *ret = ft_strdup("");
@@ -47,7 +60,15 @@ static char *ft_cmd_pre_expander(char *str)
     return ret;
 }
 
-// handles the whole expansion of a command process
+/*
+    Top‐level expansion for one word:
+    Pre-expansion: Calls ft_cmd_pre_expander to resolve $ and preserve quoted regions.
+    Clean empty quotes: Removes any '' or "" pairs that became empty after expansion (ft_clean_empty_strs).
+    Splitting: Breaks the single string into an array of words using shell word-splitting rules (ft_expander_split).
+    Globbing: For each word containing *, matches it against filenames in the current directory (ft_globber), replacing it with matching names.
+    Strip quotes: Removes all remaining quote characters from each final word (ft_strip_quotes).
+    The result is a NULL-terminated array of fully expanded, split, globbed, and unquoted strings ready to be passed as argv to a command.
+*/
 char **ft_expand(char *str)
 {
     char **expanded, **globbed;

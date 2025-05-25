@@ -1,6 +1,9 @@
 #include "minishell.h"
 
-// tracks whether the pattern is currently inside single or double quotes
+/*
+    tracks the quoted segments in the pattern so that wildcards in the quotes get
+    treated literally instead of as special characters.
+*/
 static void ft_handle_pattern_quotes(char **pattern, char *quotes)
 {
     if (**pattern == '"' || **pattern == '\'')
@@ -18,7 +21,12 @@ static void ft_handle_pattern_quotes(char **pattern, char *quotes)
     }
 }
 
-// skips over any leading '*' characters in the pattern
+/*
+    handles one or more consecutive '*' characters in the pattern.
+    consumes all the leading *s
+    if the pattern ends right after ths *s, returns true
+    o/w, records the position of the last wildcard and the last match
+*/
 static bool ft_handle_stars(char **pattern, char **last_wildcard, char **last_match, char *str)
 {
     while (**pattern == '*')
@@ -30,7 +38,13 @@ static bool ft_handle_stars(char **pattern, char **last_wildcard, char **last_ma
     return false;
 }
 
-// if the current pattern and string match, move to the next character in both
+/*
+    attempts to match s single pattern character against the cirrent string character
+    if it does match then return true
+    if not, but if there is a last wildcaard it backtracks
+    moves the pointer 1 past the last match point, resets the pattern pointer to last wildcard
+    and returns true to continue matching
+*/
 static bool ft_pattern_match_exists(char **pattern, char **last_wildcard, char **last_match, char **str)
 {
     if (**pattern == **str)
@@ -49,7 +63,12 @@ static bool ft_pattern_match_exists(char **pattern, char **last_wildcard, char *
         return false;
 }
 
-// initializes pointers for tracking the last wildcard and last match
+/*
+    matches a pattern against a string, handling wildcards and quoted segments.
+    The pattern can contain '*' characters that match any sequence of characters,
+    and quoted segments that treat wildcards literally.
+    Returns true if the pattern matches the string, false otherwise.
+*/
 bool ft_match_star(char *pattern, char *str)
 {
     char *last_wildcard, *last_match, quotes;
