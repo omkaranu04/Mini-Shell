@@ -1,14 +1,20 @@
 #include "minishell.h"
 
-// helper function to free a pointer
+/*
+    helper function to free the pointer 
+    and set it to NULL
+*/
 static void ft_del(void *ptr)
 {
     free(ptr);
     ptr = NULL;
 }
 
-// garbage collector for memory management
-// manages a static list of allocated pointers for bulk cleanup
+/*
+    maintains a static linked list of pointers
+    when clean is true it clears the entire garbage list using the ft_lstclear function
+    else it adds the provided pointer to the garbage list and returning the same pointer
+*/
 void *ft_garbage_collector(void *ptr, bool clean)
 {
     static t_list *garbage_list;
@@ -24,7 +30,11 @@ void *ft_garbage_collector(void *ptr, bool clean)
     }
 }
 
-// checks if a string is matches a delimiter, ignoring the quotes in the delimiter
+/*
+    function is used to compare a string against a delimiter pattern
+    it returns true if all non-quote chars in delimiter matched str and there are no non-quote
+    chars left in delimiter
+*/
 bool ft_is_delimiter(char *delimiter, char *str)
 {
     while (*str)

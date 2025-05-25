@@ -1,6 +1,16 @@
 #include "minishell.h"
 
-// iterates through all the redirections of the command
+/*
+    the function processes all IO redirections for a command
+    it iterates through the linked list of the IO nodes in the command node
+    for each of the IO node checks and:
+        - I_OUT: calls ft_out function
+        - IO_IN: calls ft_in function
+        - IO_APPEND: calls ft_append function
+        - IO_HEREDOC: redirects the stdin from the heredoc file descriptor and closes it
+    if any of the redirection fails then it returns the error status
+    if all redirections are successful then it returns ENO_SUCCESS
+*/
 int ft_check_redirection(t_node *node)
 {
     t_io_node *tmp_io;
@@ -21,7 +31,10 @@ int ft_check_redirection(t_node *node)
     return ENO_SUCCESS;
 }
 
-// restore the standard input and output
+/*
+    the function is used to reset the stdin and stdout fds
+    to their default values
+*/
 void ft_reset_stds(bool piped)
 {
     if (piped)
@@ -30,7 +43,18 @@ void ft_reset_stds(bool piped)
     dup2(g_minishell.stdout, 1);
 }
 
-// forks a child for the external command execution
+/*
+    the function executes an external command in a child process
+    sets a flag to indicate a child process is running
+    forks a child process
+    in child process:
+        - applies all redirections using the ft_check_redirection
+        - resolves the cmd path using the ft_get_path
+        - attempts to execute the command using execve
+    in parent process:
+        - waits for the child process to finish
+        - resets the child process flag
+*/
 static int ft_exec_child(t_node *node)
 {
     t_path path_status;
@@ -56,7 +80,19 @@ static int ft_exec_child(t_node *node)
     return (ft_get_exit_status(tmp_status));
 }
 
-// executes a simple command
+/*
+    the main function to execute simple command node
+    if there are no args
+        - applies any redirections
+        - resets the stdin and stdout fds
+        - returns ENO_GENERAL
+    if the command is a builtin
+        - applies redirections
+        - executes the builtin command
+        - resets the stdin and stdout fds
+    for any other command
+        - calls the ft_exec_child to fork and execute command
+*/
 int ft_exec_simple_cmd(t_node *node, bool piped)
 {
     int tmp_status;

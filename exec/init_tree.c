@@ -1,6 +1,10 @@
 #include "minishell.h"
 
-// handling the ctrl+c signal in heredoc
+/*
+    the function is a signal handler for the sigint during the heredoc input
+    it calls the ft_clean_ms to clean up all the minishell resources
+    and exits with SIGINT
+*/
 static void ft_heredoc_sigint_handler(int signum)
 {
     (void)signum;
@@ -8,7 +12,15 @@ static void ft_heredoc_sigint_handler(int signum)
     exit(SIGINT);
 }
 
-// handles the heredoc input for a redirection node
+/*
+    the funtion handles the collection of heredoc input
+    it checks if the delimiter contains quotes by searching for them
+    it reads the lines from the user with a '>' prompt
+    if the line matches the delimiter, it breaks the loop
+    if delimiter has no quotes then it expands the line
+    then each line is written to the pipe
+    finally it cleans up the minishell resources and exits with 0
+*/
 void ft_heredoc(t_io_node *io, int p[2])
 {
     char *line, *quotes;
@@ -35,7 +47,12 @@ void ft_heredoc(t_io_node *io, int p[2])
     exit(0);
 }
 
-// waits for the heredoc child process to finish
+/*
+    function handles the parent process's tasks after the heredoc child process
+    waits for the heredoc child, sets up the SIGQUIT handler
+    resets the sigint flag, closes the write end of the pipe
+    checks if the child exited with SIGINT, if so returns true
+*/
 static bool ft_leave_leaf(int p[2], int *pid)
 {
     waitpid(*pid, pid, 0);
@@ -47,7 +64,12 @@ static bool ft_leave_leaf(int p[2], int *pid)
     return false;
 }
 
-// initializes the leaf nodes of the AST
+/*
+    the function initializes a leaf node in AST
+    if the node has arguments it expands them, it iterates through the redirection of the node
+    if the redirection is of heredoc, it does required setup for that
+    for others it just expands the filename/value
+*/
 static void ft_init_leaf(t_node *node)
 {
     t_io_node *io;
@@ -74,7 +96,12 @@ static void ft_init_leaf(t_node *node)
     }
 }
 
-// initializes the AST
+/*
+    the maain function to initialize the entire AST
+    if the node is NULL returns immediately
+    if node is an operator then recursively initialize the left subtree
+    if no heredoc was interuppted it initializes the right subtree
+*/
 void ft_init_tree(t_node *node)
 {
     if (!node)

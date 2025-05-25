@@ -1,6 +1,9 @@
 #include "minishell.h"
 
-// frees all the nodes in the shell's env var linked list
+/*
+    the function is used to clear the env var linked list
+    and sets the list pointer to NULL
+*/
 static void ft_clear_envlist(void)
 {
     t_env *envlst, *envlst_tofree;
@@ -14,7 +17,10 @@ static void ft_clear_envlist(void)
     g_minishell.envlst = NULL;
 }
 
-// performs all the cleaning operations for the shell
+/*
+    the function is the main cleanup for the entire minishell
+    called at the end of the program
+*/
 void ft_clean_ms(void)
 {
     ft_garbage_collector(NULL, true);

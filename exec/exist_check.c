@@ -7,7 +7,10 @@
     X_OK: Check for execute permission.
 */
 
-// check if file exists and is executable
+/*
+    the function checks if the given file exists and has the
+    permission to be executed
+*/
 t_err ft_check_exec(char *file, bool cmd)
 {
     if (!*file)
@@ -23,7 +26,10 @@ t_err ft_check_exec(char *file, bool cmd)
     return ((t_err){ENO_NOT_FOUND, ERRMSG_NO_SUCH_FILE, file});
 }
 
-// check if file exists and is readable
+/*
+    the function checks if the given file exists and has the
+    permission to be read
+*/
 t_err ft_check_read(char *file)
 {
     if (!*file)
@@ -37,7 +43,10 @@ t_err ft_check_read(char *file)
     return ((t_err){ENO_NOT_FOUND, ERRMSG_NO_SUCH_FILE, file});
 }
 
-// check if file exists and is writable
+/*
+    the function checks if the given file exists and has the
+    permission to be written
+*/
 t_err ft_check_write(char *file)
 {
     if (!*file)

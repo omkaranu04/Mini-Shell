@@ -1,6 +1,9 @@
 #include "minishell.h"
 
-// prints error messages based on the error type
+/*
+    function is used to rpint the error message on the type 
+    of the error specified by the t_err_msg attr. of t_err struct
+*/
 int ft_err_msg(t_err err)
 {
     if (err.msg == ERRMSG_CMD_NOT_FOUND)

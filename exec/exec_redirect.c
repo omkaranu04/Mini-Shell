@@ -1,6 +1,11 @@
 #include "minishell.h"
 
-// handles output redirection
+/*
+    handles the output redirection
+    first check if the expanded filename is valid
+    if valid then open the file in specified mode (O_TRUNC here erases existing content and rewrites the file)
+    and then redirect the output to the desired fd using the dup2 command
+*/
 int ft_out(t_io_node *io_list, int *status)
 {
     int fd;
@@ -21,7 +26,12 @@ int ft_out(t_io_node *io_list, int *status)
     return (*status);
 }
 
-// handles input redirection
+/*
+    handles the input redirection
+    first check if the expanded filename is valid
+    if valid then open the file in specified mode
+    and then redirect the input to the desired fd using the dup2 command
+*/
 int ft_in(t_io_node *io_list, int *status)
 {
     int fd;
@@ -42,7 +52,12 @@ int ft_in(t_io_node *io_list, int *status)
     return (*status);
 }
 
-// handles append redirection
+/*
+    handles the append redirection
+    first check if the expanded filename is valid
+    if valid then open the file in specified mode (O_APPEND here is necessary)
+    and then redirect the output to the desired fd using the dup2 command
+*/
 int ft_append(t_io_node *io_list, int *status)
 {
     int fd;

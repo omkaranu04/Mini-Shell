@@ -1,6 +1,12 @@
 #include "minishell.h"
 
-// split the PATH in env var into its component directories
+/*
+    the function searches for a command in the directories specified in the PATH env var
+    the funtion iterates thorugh each directory in the path, constructs the potential command by joining the directory path
+    with the command name using '/'
+    if an executable is found it returns the t_path with error code and path to the executable
+    else returns with the command not found error
+*/
 static t_path ft_get_env_path(char *path, char *cmd)
 {
     size_t i = 0;
@@ -19,7 +25,12 @@ static t_path ft_get_env_path(char *path, char *cmd)
     return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_CMD_NOT_FOUND, cmd}, NULL});
 }
 
-// main function to get the path of a command
+/*
+    the main function to resolve the command paths
+    if the command conatins '/' it indicates a relative/absolute path rather than bare commaand name
+    in such a case it directly checks if the given path is executable
+    else it calls the ft_get_env_path after retrieving the PATH var using the ft_get_envlst_val
+*/
 t_path ft_get_path(char *cmd)
 {
     char *value;

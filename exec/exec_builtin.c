@@ -1,6 +1,10 @@
 #include "minishell.h"
 
-// execute the builtin commands
+/*
+    makes the function calls for the builtin commands as specified
+    in th builtins directory
+    the function returns the exit status of the builtin command
+*/
 int ft_exec_builtin(char **args)
 {
     if (ft_strcmp(args[0], "echo") == 0)
@@ -19,7 +23,9 @@ int ft_exec_builtin(char **args)
     return ENO_GENERAL;
 }
 
-// check if the command is a builtin
+/*
+    checks if the user typed cmd is any of the biltin command
+*/
 bool ft_is_builtin(char *arg)
 {
     if (!arg)
